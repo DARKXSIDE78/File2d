@@ -1,30 +1,40 @@
-#(©)Codexbotz
-
 import base64
 import re
 import asyncio
 import logging 
 from pyrogram import filters
 from pyrogram.enums import ChatMemberStatus
-from config import FORCE_SUB_CHANNEL, ADMINS, AUTO_DELETE_TIME, AUTO_DEL_SUCCESS_MSG
+from config import FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL2, FORCE_SUB_CHANNEL3, FORCE_SUB_CHANNEL4, ADMINS, AUTO_DELETE_TIME, AUTO_DEL_SUCCESS_MSG
 from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 from pyrogram.errors import FloodWait
 
 async def is_subscribed(filter, client, update):
-    if not FORCE_SUB_CHANNEL:
-        return True
     user_id = update.from_user.id
+    
+    # Skip checks for admins
     if user_id in ADMINS:
         return True
-    try:
-        member = await client.get_chat_member(chat_id = FORCE_SUB_CHANNEL, user_id = user_id)
-    except UserNotParticipant:
-        return False
 
-    if not member.status in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER]:
-        return False
-    else:
+    # List of all force sub channels
+    force_sub_channels = [FORCE_SUB_CHANNEL, FORCE_SUB_CHANNEL2, FORCE_SUB_CHANNEL3, FORCE_SUB_CHANNEL4]
+    
+    # If no channels are set, return True
+    if not any(force_sub_channels):
         return True
+    
+    # Check each channel
+    for channel in force_sub_channels:
+        if channel:
+            try:
+                member = await client.get_chat_member(chat_id=channel, user_id=user_id)
+            except UserNotParticipant:
+                return False
+
+            # Check if the user is an owner, admin, or a regular member
+            if member.status not in [ChatMemberStatus.OWNER, ChatMemberStatus.ADMINISTRATOR, ChatMemberStatus.MEMBER]:
+                return False
+
+    return True
 
 async def encode(string):
     string_bytes = string.encode("ascii")
@@ -33,7 +43,7 @@ async def encode(string):
     return base64_string
 
 async def decode(base64_string):
-    base64_string = base64_string.strip("=") # links generated before this commit will be having = sign, hence striping them to handle padding errors.
+    base64_string = base64_string.strip("=")  # links generated before this commit will be having = sign, hence striping them to handle padding errors.
     base64_bytes = (base64_string + "=" * (-len(base64_string) % 4)).encode("ascii")
     string_bytes = base64.urlsafe_b64decode(base64_bytes) 
     string = string_bytes.decode("ascii")
@@ -71,7 +81,7 @@ async def get_message_id(client, message):
         return 0
     elif message.text:
         pattern = "https://t.me/(?:c/)?(.*)/(\d+)"
-        matches = re.match(pattern,message.text)
+        matches = re.match(pattern, message.text)
         if not matches:
             return 0
         channel_id = matches.group(1)
@@ -116,6 +126,5 @@ async def delete_file(messages, client, process):
             print(f"The attempt to delete the media {msg.id} was unsuccessful: {e}")
 
     await process.edit_text(AUTO_DEL_SUCCESS_MSG)
-
 
 subscribed = filters.create(is_subscribed)
