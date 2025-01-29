@@ -6,6 +6,8 @@ from pyrogram import Client, filters
 from pyrogram.enums import ParseMode
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery  # Add CallbackQuery here
 
 from bot import Bot
 from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT, START_PIC, AUTO_DELETE_TIME, AUTO_DELETE_MSG, JOIN_REQUEST_ENABLE,FORCE_SUB_CHANNEL,FORCE_SUB_CHANNEL2,FORCE_SUB_CHANNEL3,FORCE_SUB_CHANNEL4
@@ -155,14 +157,14 @@ async def about_callback(client: Client, callback_query: CallbackQuery):
     # Send some info about the bot
     await callback_query.answer()
     await callback_query.message.edit_text(
-    "<b>○ Cʀᴇᴀᴛᴏʀ: <a href='https://t.me/Shikamaru_Naru'>Shikamaru</a>\n"
-    "○ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/downloads/'>Pʏᴛʜᴏɴ</a>\n"
-    "○ Lɪʙʀᴀʀʏ: <a href='https://github.com/pyrogram/pyrogram'>Pʏʀᴏɢʀᴀᴍ</a>\n"
-    "○ Mᴀɪɴ Cʜᴀɴɴᴇʟ: <a href='https://t.me/Anime_Movies_Hindi_Dub_India'>Aɴɪᴍᴇ</a>\n",
+    "<b>○ Cʀᴇᴀᴛᴏʀ: <a href='https://t.me/Shikamaru_Naru'>Shikamaru</a></b>\n"
+    "<b>○ Lᴀɴɢᴜᴀɢᴇ: <a href='https://www.python.org/downloads/'>Pʏᴛʜᴏɴ</a></b\n"
+    "<b>○ Lɪʙʀᴀʀʏ: <a href='https://github.com/pyrogram/pyrogram'>Pʏʀᴏɢʀᴀᴍ</a></b\n"
+    "<b>○ Mᴀɪɴ Cʜᴀɴɴᴇʟ: <a href='https://t.me/Anime_Movies_Hindi_Dub_India'>Aɴɪᴍᴇ</a></b\n",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("✘ ᴄʟᴏsᴇ", callback_data="close")
+                    InlineKeyboardButton("✘ ᴄʟᴏsᴇ", callback_data= "close")
                 ]
             ]
         )
