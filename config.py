@@ -28,8 +28,8 @@ DB_NAME = os.environ.get("DATABASE_NAME", "Paid")
 #force sub channel id, if you want enable force sub
 FORCE_SUB_CHANNEL = os.environ.get("FORCE_SUB_CHANNEL", "-1002180894653")
 FORCE_SUB_CHANNEL2 = os.environ.get("FORCE_SUB_CHANNEL2", "-1002327756626")
-FORCE_SUB_CHANNEL3 = os.environ.get("FORCE_SUB_CHANNEL3", "-1002271057032")
-FORCE_SUB_CHANNEL4 = os.environ.get("FORCE_SUB_CHANNEL4", "-1002266628698")
+FORCE_SUB_CHANNEL3 = os.environ.get("FORCE_SUB_CHANNEL3", "-1002426113388")
+FORCE_SUB_CHANNEL4 = os.environ.get("FORCE_SUB_CHANNEL4", "-1002426113388")
 JOIN_REQUEST_ENABLE = os.environ.get("JOIN_REQUEST_ENABLED", "True")
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
