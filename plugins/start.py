@@ -191,8 +191,7 @@ async def not_joined(client: Client, message: Message):
     force_sub_channels = [
         {"id": FORCE_SUB_CHANNEL, "name": "Jᴏɪɴ"},
         {"id": FORCE_SUB_CHANNEL2, "name": "Jᴏɪɴ"},
-        {"id": FORCE_SUB_CHANNEL3, "name": "Jᴏɪɴ"},
-        {"id": FORCE_SUB_CHANNEL4, "name": "Jᴏɪɴ"}
+        {"id": FORCE_SUB_CHANNEL3, "name": "Jᴏɪɴ"}
     ]
 
     # Check if the user is subscribed to any of the channels
